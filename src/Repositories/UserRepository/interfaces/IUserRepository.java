@@ -1,4 +1,4 @@
-package UserRepository.interfaces;
+package Repositories.UserRepository.interfaces;
 
 public interface IUserRepository {
     public void createUser();

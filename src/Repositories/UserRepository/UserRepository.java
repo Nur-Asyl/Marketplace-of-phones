@@ -1,6 +1,6 @@
-package UserRepository;
+package Repositories.UserRepository;
 
-import UserRepository.interfaces.IUserRepository;
+import Repositories.UserRepository.interfaces.IUserRepository;
 
 public class UserRepository implements IUserRepository {
 
