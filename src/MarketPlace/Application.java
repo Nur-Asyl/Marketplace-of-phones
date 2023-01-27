@@ -1,0 +1,121 @@
+package MarketPlace;
+
+import Controllers.UserController.UserController;
+
+import java.util.InputMismatchException;
+import java.util.Scanner;
+
+import static Repositories.Repository.*;
+
+public class Application {
+
+    private UserController userController;
+    Scanner scanner;
+
+    public Application(UserController userController) {
+        this.scanner = new Scanner(System.in);
+        this.userController = userController;
+    }
+
+    public void start() {
+        while (true) {
+            System.out.println();
+            System.out.println("*************************");
+            System.out.println("Welcome to My Application");
+            System.out.println("Select option:");
+            System.out.println("1. Get all users");
+            System.out.println("2. Get user by id");
+            System.out.println("3. Create user");
+            System.out.println("4. Update user");
+
+            System.out.println("0. Exit");
+            System.out.println();
+            try {
+                System.out.print("Enter option (1-4): ");
+                int option = scanner.nextInt();
+                if (option == 1) {
+                    getAllUsersMenu();
+                } else if (option == 2) {
+                    getUserByIdMenu();
+                } else if (option == 3) {
+                    createUserMenu();
+                } else if (option == 4) {
+                    updateUserMenu();
+                } else {
+                    scanner.close();
+                    break;
+                }
+            } catch (InputMismatchException e) {
+                System.out.println(e.getMessage() + ": Input must be integer");
+                scanner.nextLine(); // to ignore incorrect input
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+
+            System.out.println("*************************");
+
+        }
+    }
+
+    public void getAllUsersMenu() {
+        String response = userController.getAllUsers();
+        System.out.println(response);
+    }
+
+    public void getUserByIdMenu() {
+        System.out.print("Please enter id: ");
+
+        int id = scanner.nextInt();
+        String response = userController.getUser(id);
+        System.out.println(response);
+    }
+
+    public void createUserMenu() {
+        System.out.println("Please enter " + DB_USER_NAME);
+        String name = scanner.next();
+
+        System.out.println("Please enter " + DB_USER_PASSWORD);
+        String password = scanner.next();
+
+        System.out.println("Please enter " + DB_USER_BALANCE);
+        float balance = scanner.nextFloat();
+
+        String response = userController.createUser(name, password, balance);
+        System.out.println(response);
+    }
+
+    public void updateUserMenu(){
+        System.out.print("Enter id: ");
+        int id = scanner.nextInt();
+        while(true) {
+            userController.getUser(id).toString();
+            System.out.print("Edit:" +
+                    "\n1. " + DB_USER_NAME +
+                    "\n2. " + DB_USER_PASSWORD +
+                    "\n3. " + DB_USER_BALANCE +
+                    "\n9. back" +
+                    "\nEnter option(1-5): ");
+            try {
+                int option = scanner.nextInt();
+                if (option == 1) {
+                    System.out.print("Edit" + DB_USER_NAME + " : ");
+                    System.out.println("\t" + userController.updateUserName(id, scanner.next()));
+                } else if (option == 2) {
+                    System.out.print("Edit" + DB_USER_PASSWORD + " : ");
+                    System.out.println("\t" + userController.updateUserPassword(id, scanner.next()));
+                } else if (option == 3) {
+                    System.out.print("Edit" + DB_USER_BALANCE + " : ");
+                    System.out.println("\t" + userController.updateUserBalance(id, scanner.nextFloat()));
+                } else {
+                    break;
+                }
+            } catch (InputMismatchException e) {
+                System.out.println(e.getMessage() + ": Input must be integer");
+                scanner.nextLine(); // to ignore incorrect input
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+        }
+    }
+
+}

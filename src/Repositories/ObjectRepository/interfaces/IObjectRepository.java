@@ -1,11 +1,11 @@
 package Repositories.ObjectRepository.interfaces;
 
 public interface IObjectRepository {
-    public void createObject();
-    public void deleteObject(int id);
-    public void updateObjectName(int id);
-    public void updateObjectCompany(int id);
-    public void updateObjectAmountLeft(int id);
-    public void updateObjectCost(int id);
-    public void readObject();
+    public boolean createObject();
+    public boolean deleteObject(int id);
+    public boolean updateObjectName(int id);
+    public boolean updateObjectCompany(int id);
+    public boolean updateObjectAmountLeft(int id);
+    public boolean updateObjectCost(int id);
+    public Object getObject(int id);
 }

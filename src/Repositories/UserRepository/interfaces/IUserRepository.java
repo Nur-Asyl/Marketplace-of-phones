@@ -1,11 +1,16 @@
 package Repositories.UserRepository.interfaces;
 
-public interface IUserRepository {
-    public void createUser();
-    public void deleteUser(int id);
-    public void updateUserName(int id);
-    public void updateUserPassword(int id);
-    public void updateUserBalance(int id);
-    public void readUser();
+import Entities.Users.User;
 
+import java.util.List;
+
+public interface IUserRepository {
+    public boolean createUser(User user);
+    public boolean deleteUser(int id);
+    public boolean updateUserName(int id, String newValue);
+    public boolean updateUserPassword(int id, String newValue);
+    public boolean updateUserBalance(int id, float newValue);
+    public User getUser(int id);
+
+    List<User> getAllUsers();
 }

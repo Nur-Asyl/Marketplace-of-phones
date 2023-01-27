@@ -2,25 +2,35 @@ package Entities.Users;
 
 import Entities.Users.interfaces.IUser;
 
-public abstract class User implements IUser {
-    private String user_name;
+public class User implements IUser {
+    private String userName;
     private String password;
     private int id;
     private float balance;
 
-    public User(String user_name, String password, int id, float balance) {
-        this.user_name = user_name;
+    public User(String user_name, String password, float balance, int id) {
+        this.userName = user_name;
         this.password = password;
+        this.balance = balance;
         this.id = id;
+    }
+    public User(String userName, String password, float balance) {
+        this.userName = userName;
+        this.password = password;
         this.balance = balance;
     }
-    @Override
-    public String getUser_name() {
-        return user_name;
+    public User(String user_name, String password, int id) {
+        this.userName = user_name;
+        this.password = password;
+        this.id = id;
     }
     @Override
-    public void setUser_name(String user_name) {
-        this.user_name = user_name;
+    public String getUserName() {
+        return userName;
+    }
+    @Override
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
     @Override
     public String getPassword() {
@@ -47,4 +57,13 @@ public abstract class User implements IUser {
         this.balance = balance;
     }
 
+    @Override
+    public String toString() {
+        return "User{" +
+                "user_name='" + userName + '\'' +
+                ", password='" + password + '\'' +
+                ", id=" + id +
+                ", balance=" + balance +
+                '}';
+    }
 }

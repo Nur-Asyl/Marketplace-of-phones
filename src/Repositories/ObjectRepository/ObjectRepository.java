@@ -1,41 +1,49 @@
 package Repositories.ObjectRepository;
 
+import Data.interfaces.IDB;
 import Repositories.ObjectRepository.interfaces.IObjectRepository;
 
 public class ObjectRepository implements IObjectRepository {
 
-    @Override
-    public void createObject() {
+    private final IDB db;
 
+    public ObjectRepository(IDB db) {
+        this.db = db;
+    }
+
+
+    @Override
+    public boolean createObject() {
+        return false;
     }
 
     @Override
-    public void deleteObject(int id) {
-
+    public boolean deleteObject(int id) {
+        return false;
     }
 
     @Override
-    public void updateObjectName(int id) {
-
+    public boolean updateObjectName(int id) {
+        return false;
     }
 
     @Override
-    public void updateObjectCompany(int id) {
-
+    public boolean updateObjectCompany(int id) {
+        return false;
     }
 
     @Override
-    public void updateObjectAmountLeft(int id) {
-
+    public boolean updateObjectAmountLeft(int id) {
+        return false;
     }
 
     @Override
-    public void updateObjectCost(int id) {
-
+    public boolean updateObjectCost(int id) {
+        return false;
     }
 
     @Override
-    public void readObject() {
-
+    public Object getObject(int id) {
+        return null;
     }
 }

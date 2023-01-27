@@ -1,5 +1,7 @@
 package Data.interfaces;
 
+import java.sql.*;
+
 public interface IDB {
-    public void getConnection();
+    public Connection getConnection() throws SQLException, ClassNotFoundException;
 }
