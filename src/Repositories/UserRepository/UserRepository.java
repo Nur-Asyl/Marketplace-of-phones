@@ -51,7 +51,27 @@ public class UserRepository implements IUserRepository {
 
     @Override
     public boolean deleteUser(int id) {
+        Connection con = null;
+        try {
+            con = db.getConnection();
+            String sql = "DELETE FROM " + DB_USER_TABLE + " WHERE id=?";
+            PreparedStatement st = con.prepareStatement(sql);
 
+            st.setInt(1, id);
+
+            st.executeUpdate();
+            return true;
+        } catch(SQLException throwables){
+            throwables.printStackTrace();
+        } catch(ClassNotFoundException e){
+            e.printStackTrace();
+        } finally {
+            try {
+                con.close();
+            } catch(SQLException throwables){
+                throwables.printStackTrace();
+            }
+        }
         return false;
     }
 
@@ -140,6 +160,37 @@ public class UserRepository implements IUserRepository {
 
     @Override
     public User getUser(int id) {
+        Connection con = null;
+        try {
+            con = db.getConnection();
+            String sql = "SELECT " +
+                    DB_USER_NAME + "," +
+                    DB_USER_PASSWORD + "," +
+                    DB_USER_BALANCE + " FROM " + DB_USER_TABLE + " WHERE id=?";
+            PreparedStatement st = con.prepareStatement(sql);
+
+            st.setInt(1, id);
+
+            ResultSet rs = st.executeQuery();
+
+            if(rs.next()) {
+                User user = new User(rs.getString(DB_USER_NAME),
+                        rs.getString(DB_USER_PASSWORD),
+                        rs.getFloat(DB_USER_BALANCE),
+                        rs.getInt(DB_USER_ID));
+                return user;
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                con.close();
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+        }
         return null;
     }
 

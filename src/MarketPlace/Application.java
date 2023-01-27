@@ -20,18 +20,19 @@ public class Application {
     public void start() {
         while (true) {
             System.out.println();
-            System.out.println("*************************");
+            System.out.println("**********************************");
             System.out.println("Welcome to My Application");
             System.out.println("Select option:");
             System.out.println("1. Get all users");
             System.out.println("2. Get user by id");
             System.out.println("3. Create user");
             System.out.println("4. Update user");
+            System.out.println("5. Delete user");
 
             System.out.println("0. Exit");
             System.out.println();
             try {
-                System.out.print("Enter option (1-4): ");
+                System.out.print("Enter option (1-5): ");
                 int option = scanner.nextInt();
                 if (option == 1) {
                     getAllUsersMenu();
@@ -41,6 +42,8 @@ public class Application {
                     createUserMenu();
                 } else if (option == 4) {
                     updateUserMenu();
+                } else if (option == 5) {
+                    deleteUserMenu();
                 } else {
                     scanner.close();
                     break;
@@ -52,8 +55,7 @@ public class Application {
                 System.out.println(e.getMessage());
             }
 
-            System.out.println("*************************");
-
+            System.out.println("**********************************");
         }
     }
 
@@ -116,6 +118,14 @@ public class Application {
                 System.out.println(e.getMessage());
             }
         }
+    }
+
+    public void deleteUserMenu(){
+        System.out.print("Please enter id: ");
+
+        int id = scanner.nextInt();
+        String response = userController.deleteUser(id);
+        System.out.println(response);
     }
 
 }
