@@ -1,4 +1,14 @@
 package Entities.Objects.Phones.Wire.Disk;
 
-public abstract class DiskPhone {
+import Entities.Objects.Phones.Wire.WiredPhone;
+
+public class DiskPhone extends WiredPhone {
+    public DiskPhone(int id, String name, String company, int amountLeft, float cost, String connectionType) {
+        super(id, name, company, amountLeft, cost, connectionType);
+    }
+
+    public DiskPhone(String name, String company, int amountLeft, float cost, String connectionType) {
+        super(name, company, amountLeft, cost, connectionType);
+    }
+
 }

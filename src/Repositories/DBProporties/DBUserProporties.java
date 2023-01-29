@@ -1,6 +1,6 @@
-package Repositories;
+package Repositories.DBProporties;
 
-public class Repository {
+public class DBUserProporties {
     public static final String DB_USER_TABLE = "Adilet suka bliya gde DATA BASE!";
     public static final String DB_USER_ID = "id";
     public static final String DB_USER_NAME = "username";

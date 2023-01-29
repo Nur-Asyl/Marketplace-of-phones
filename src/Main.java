@@ -2,8 +2,8 @@ import Controllers.UserController.UserController;
 import Data.MySql;
 import Data.interfaces.IDB;
 import MarketPlace.Application;
-import Repositories.ObjectRepository.ObjectRepository;
-import Repositories.ObjectRepository.interfaces.IObjectRepository;
+import Repositories.ObjectRepository.PhoneRepository;
+import Repositories.ObjectRepository.interfaces.IPhoneRepository;
 import Repositories.UserRepository.UserRepository;
 import Repositories.UserRepository.interfaces.IUserRepository;
 
@@ -15,7 +15,7 @@ public class Main {
 
         //Repositories and Controllers
         IUserRepository userRepo = new UserRepository(db);
-        IObjectRepository objectRepo = new ObjectRepository(db);
+        IPhoneRepository objectRepo = new PhoneRepository(db);
         UserController userController = new UserController(userRepo);
 
         // MarketPlace

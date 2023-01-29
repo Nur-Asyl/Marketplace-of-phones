@@ -8,7 +8,7 @@ import java.sql.*;
 import java.util.LinkedList;
 import java.util.List;
 
-import static Repositories.Repository.*;
+import static Repositories.DBProporties.DBUserProporties.*;
 
 public class UserRepository implements IUserRepository {
     private final IDB db;
@@ -138,6 +138,7 @@ public class UserRepository implements IUserRepository {
             String sql = "UPDATE " + DB_USER_TABLE + " SET " + DB_USER_BALANCE + " = ? WHERE id=?";
 
             PreparedStatement st = con.prepareStatement(sql);
+
             st.setFloat(1, newValue);
             st.setInt(2, id);
 

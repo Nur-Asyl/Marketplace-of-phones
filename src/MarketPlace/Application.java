@@ -1,131 +1,62 @@
 package MarketPlace;
 
+import Controllers.ObjectController.PhoneController;
 import Controllers.UserController.UserController;
+import MarketPlace.Menu.AdminMenu;
+import MarketPlace.Menu.UserMenu;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-import static Repositories.Repository.*;
+import static Repositories.DBProporties.DBUserProporties.*;
 
 public class Application {
 
     private UserController userController;
+    private PhoneController phoneController;
     Scanner scanner;
 
+    public Application(UserController userController, PhoneController phoneController) {
+        this.userController = userController;
+        this.phoneController = phoneController;
+        this.scanner = new Scanner(System.in);
+    }
+
     public Application(UserController userController) {
+        this.scanner = scanner;
         this.scanner = new Scanner(System.in);
         this.userController = userController;
+    }
+    public Application(PhoneController phoneController) {
+        this.scanner = new Scanner(System.in);
+        this.phoneController = phoneController;
     }
 
     public void start() {
         while (true) {
-            System.out.println();
-            System.out.println("**********************************");
-            System.out.println("Welcome to My Application");
-            System.out.println("Select option:");
-            System.out.println("1. Get all users");
-            System.out.println("2. Get user by id");
-            System.out.println("3. Create user");
-            System.out.println("4. Update user");
-            System.out.println("5. Delete user");
-
-            System.out.println("0. Exit");
-            System.out.println();
             try {
-                System.out.print("Enter option (1-5): ");
+                UserMenu userMenu = new UserMenu(userController);
+                AdminMenu adminMenu = new AdminMenu(phoneController, this.scanner);
+                System.out.println("1. Marketplace");
+                System.out.println("2. Profile");
+                System.out.println("3. for Admin");
+                System.out.println("Option:");
                 int option = scanner.nextInt();
                 if (option == 1) {
-                    getAllUsersMenu();
+                    phoneController.getAllPhones();
                 } else if (option == 2) {
-                    getUserByIdMenu();
+                    userMenu.start();
                 } else if (option == 3) {
-                    createUserMenu();
-                } else if (option == 4) {
-                    updateUserMenu();
-                } else if (option == 5) {
-                    deleteUserMenu();
-                } else {
-                    scanner.close();
-                    break;
-                }
-            } catch (InputMismatchException e) {
-                System.out.println(e.getMessage() + ": Input must be integer");
-                scanner.nextLine(); // to ignore incorrect input
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
-            }
-
-            System.out.println("**********************************");
-        }
-    }
-
-    public void getAllUsersMenu() {
-        String response = userController.getAllUsers();
-        System.out.println(response);
-    }
-
-    public void getUserByIdMenu() {
-        System.out.print("Please enter id: ");
-
-        int id = scanner.nextInt();
-        String response = userController.getUser(id);
-        System.out.println(response);
-    }
-
-    public void createUserMenu() {
-        System.out.println("Please enter " + DB_USER_NAME);
-        String name = scanner.next();
-
-        System.out.println("Please enter " + DB_USER_PASSWORD);
-        String password = scanner.next();
-
-        System.out.println("Please enter " + DB_USER_BALANCE);
-        float balance = scanner.nextFloat();
-
-        String response = userController.createUser(name, password, balance);
-        System.out.println(response);
-    }
-
-    public void updateUserMenu(){
-        System.out.print("Enter id: ");
-        int id = scanner.nextInt();
-        while(true) {
-            userController.getUser(id).toString();
-            System.out.print("Edit:" +
-                    "\n1. " + DB_USER_NAME +
-                    "\n2. " + DB_USER_PASSWORD +
-                    "\n3. " + DB_USER_BALANCE +
-                    "\n9. back" +
-                    "\nEnter option(1-5): ");
-            try {
-                int option = scanner.nextInt();
-                if (option == 1) {
-                    System.out.print("Edit" + DB_USER_NAME + " : ");
-                    System.out.println("\t" + userController.updateUserName(id, scanner.next()));
-                } else if (option == 2) {
-                    System.out.print("Edit" + DB_USER_PASSWORD + " : ");
-                    System.out.println("\t" + userController.updateUserPassword(id, scanner.next()));
-                } else if (option == 3) {
-                    System.out.print("Edit" + DB_USER_BALANCE + " : ");
-                    System.out.println("\t" + userController.updateUserBalance(id, scanner.nextFloat()));
+                    adminMenu.start();
                 } else {
                     break;
                 }
             } catch (InputMismatchException e) {
                 System.out.println(e.getMessage() + ": Input must be integer");
-                scanner.nextLine(); // to ignore incorrect input
-            } catch (Exception e) {
+                //scanner.nextLine(); // to ignore incorrect input
+            } catch (Exception e){
                 System.out.println(e.getMessage());
             }
         }
     }
-
-    public void deleteUserMenu(){
-        System.out.print("Please enter id: ");
-
-        int id = scanner.nextInt();
-        String response = userController.deleteUser(id);
-        System.out.println(response);
-    }
-
 }
