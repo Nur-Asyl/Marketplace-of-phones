@@ -8,47 +8,42 @@ import MarketPlace.Menu.UserMenu;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-import static Repositories.DBProporties.DBUserProporties.*;
 
 public class Application {
 
-    private UserController userController;
-    private PhoneController phoneController;
-    Scanner scanner;
+    private final UserController userController;
+    private final PhoneController phoneController;
+    private final Scanner scanner;
 
     public Application(UserController userController, PhoneController phoneController) {
         this.userController = userController;
         this.phoneController = phoneController;
         this.scanner = new Scanner(System.in);
     }
-
-    public Application(UserController userController) {
-        this.scanner = scanner;
-        this.scanner = new Scanner(System.in);
+    public Application(UserController userController, PhoneController phoneController, Scanner scanner) {
         this.userController = userController;
-    }
-    public Application(PhoneController phoneController) {
-        this.scanner = new Scanner(System.in);
         this.phoneController = phoneController;
+        this.scanner = scanner;
     }
 
     public void start() {
         while (true) {
             try {
-                UserMenu userMenu = new UserMenu(userController);
-                AdminMenu adminMenu = new AdminMenu(phoneController, this.scanner);
+                UserMenu userMenu = new UserMenu(this.userController, this.phoneController, scanner);
+                AdminMenu adminMenu = new AdminMenu(this.userController, this.phoneController, scanner);
                 System.out.println("1. Marketplace");
                 System.out.println("2. Profile");
                 System.out.println("3. for Admin");
                 System.out.println("Option:");
                 int option = scanner.nextInt();
                 if (option == 1) {
-                    phoneController.getAllPhones();
+                    System.out.println(phoneController.getAllPhones());
                 } else if (option == 2) {
                     userMenu.start();
                 } else if (option == 3) {
                     adminMenu.start();
                 } else {
+                    this.scanner.close();
                     break;
                 }
             } catch (InputMismatchException e) {

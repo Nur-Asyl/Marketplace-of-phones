@@ -1,5 +1,6 @@
 package MarketPlace.Menu;
 
+import Controllers.ObjectController.PhoneController;
 import Controllers.UserController.UserController;
 import Entities.Users.User;
 import MarketPlace.Application;
@@ -9,16 +10,17 @@ import java.util.Scanner;
 
 import static Repositories.DBProporties.DBUserProporties.*;
 
-public class UserMenu extends Application {
+public class UserMenu {
 
     Scanner scanner;
     UserController userController;
+    PhoneController phoneController;
 
-    public UserMenu(UserController userController) {
-        super(userController);
-        scanner = new Scanner(System.in);
+    public UserMenu(UserController userController, PhoneController phoneController, Scanner scanner) {
+        this.userController = userController;
+        this.phoneController = phoneController;
+        this.scanner = scanner;
     }
-    @Override
     public void start() {
         while (true) {
             System.out.println();
@@ -48,7 +50,6 @@ public class UserMenu extends Application {
                 } else if (option == 5) {
                     deleteUserMenu();
                 } else {
-                    scanner.close();
                     break;
                 }
             } catch (InputMismatchException e) {

@@ -2,24 +2,24 @@ package MarketPlace.Menu;
 
 import Controllers.ObjectController.PhoneController;
 import Controllers.UserController.UserController;
-import Entities.Objects.Phones.Phone;
-import MarketPlace.Application;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import static Repositories.DBProporties.DBPhoneProporties.*;
-import static Repositories.DBProporties.DBUserProporties.*;
 
-public class AdminMenu extends Application {
+
+public class AdminMenu {
     PhoneController phoneController;
+    UserController userController;
     Scanner scanner;
 
-    public AdminMenu(PhoneController phoneController, Scanner scanner) {
-        super(phoneController);
+    public AdminMenu(UserController userController, PhoneController phoneController, Scanner scanner) {
+        this.phoneController = phoneController;
+        this.userController = userController;
         this.scanner = scanner;
     }
-    @Override
+
     public void start() {
         while (true) {
             System.out.println();
@@ -91,8 +91,10 @@ public class AdminMenu extends Application {
             System.out.print("Option (1-2): ");
             option = scanner.nextInt();
             if(option == 1){
+                // button phone
                 System.out.println(createButtonPhoneMenu());
             } else if(option == 2){
+                // disk phone
                 System.out.println(createDiskPhoneMenu());
             } else{
                 createPhoneMenu();
@@ -110,14 +112,17 @@ public class AdminMenu extends Application {
                 System.out.print("Option (1-2): ");
                 option = scanner.nextInt();
                 if(option == 1){
-
+                    // base model
+                    System.out.println(createCellularBaseModel());
                 } else if(option == 2){
+                    // smartphone
                     System.out.println("1. Android");
                     System.out.println("2. IOS");
                     System.out.println("0. back");
                     System.out.print("Option (1-2): ");
                     option = scanner.nextInt();
                     if(option == 1){
+                        //android
                         System.out.println("1. Samsung");
                         System.out.println("2. Huawei");
                         System.out.println("3. Oppo");
@@ -134,6 +139,7 @@ public class AdminMenu extends Application {
                             createPhoneMenu();
                         }
                     } else if(option == 2){
+                        // ios
                         System.out.println("1. Apple");
                         System.out.println("0. back");
                         System.out.print("Option (1): ");
@@ -150,6 +156,7 @@ public class AdminMenu extends Application {
                     createPhoneMenu();
                 }
             } else if(option == 2){
+                //radio phone
                 System.out.println(createRadioPhoneMenu());
             } else{
                 createPhoneMenu();
@@ -158,206 +165,251 @@ public class AdminMenu extends Application {
     }
 
     private String createRadioPhoneMenu() {
+        scanner.nextLine();
         System.out.println("Please enter " + DB_PHONE_NAME);
-        String name = scanner.next();
+        String name = scanner.nextLine();
 
         System.out.println("Please enter " + DB_PHONE_COMPANY);
-        String company = scanner.next();
+        String company = scanner.nextLine();
 
-        System.out.println("Please enter " + DB_PHONE_AMOUNT_LEFT);
+        System.out.println("Please enter(int) " + DB_PHONE_AMOUNT_LEFT);
         int amountLeft = scanner.nextInt();
 
-        System.out.println("Please enter " + DB_PHONE_COST);
+        System.out.println("Please enter(float) " + DB_PHONE_COST);
         float cost = scanner.nextFloat();
+        scanner.nextLine();
 
         System.out.println("Please enter " + DB_PHONE_NETWORK_TYPE);
-        String networkType = scanner.next();
+        String networkType = scanner.nextLine();
 
         System.out.println("Please enter " + DB_PHONE_OS);
-        String os = scanner.next();
+        String os = scanner.nextLine();
 
-        System.out.println("Please enter " + DB_PHONE_FREQUENCY);
+        System.out.println("Please enter(int) " + DB_PHONE_FREQUENCY);
         int frequency = scanner.nextInt();
+        scanner.nextLine();
 
         String response = phoneController.createRadioPhone(name, company, amountLeft, cost, networkType, os, frequency);
         return response;
     }
 
     public String createCellularSamsungPhoneMenu(){
+        scanner.nextLine();
         System.out.println("Please enter " + DB_PHONE_NAME);
-        String name = scanner.next();
+        String name = scanner.nextLine();
 
         System.out.println("Please enter " + DB_PHONE_COMPANY);
-        String company = scanner.next();
+        String company = scanner.nextLine();
 
-        System.out.println("Please enter " + DB_PHONE_AMOUNT_LEFT);
+        System.out.println("Please enter(int) " + DB_PHONE_AMOUNT_LEFT);
         int amountLeft = scanner.nextInt();
 
-        System.out.println("Please enter " + DB_PHONE_COST);
+        System.out.println("Please enter(float) " + DB_PHONE_COST);
         float cost = scanner.nextFloat();
+        scanner.nextLine();
 
         System.out.println("Please enter " + DB_PHONE_NETWORK_TYPE);
-        String networkType = scanner.next();
+        String networkType = scanner.nextLine();
 
         System.out.println("Please enter " + DB_PHONE_OS);
-        String os = scanner.next();
+        String os = scanner.nextLine();
 
         System.out.println("Please enter " + DB_PHONE_SCREEN_SIZE);
-        String screenSize = scanner.next();
+        String screenSize = scanner.nextLine();
 
         System.out.println("Please enter " + DB_PHONE_CAMERA_PIXEL);
-        String cameraPixel = scanner.next();
+        String cameraPixel = scanner.nextLine();
 
         System.out.println("Please enter " + DB_PHONE_SENSORS);
-        String sensors = scanner.next();
+        String sensors = scanner.nextLine();
 
         System.out.println("Please enter " + DB_PHONE_ANDROID_VERSION);
-        String androidVersion = scanner.next();
+        String androidVersion = scanner.nextLine();
 
         String response = phoneController.createCellularPhoneAndroidSamsung(name, company, amountLeft, cost, networkType, os, screenSize, cameraPixel, sensors, androidVersion);
         return response;
     }
     public String createCellularHuaweiPhoneMenu(){
+        scanner.nextLine();
         System.out.println("Please enter " + DB_PHONE_NAME);
         String name = scanner.next();
 
         System.out.println("Please enter " + DB_PHONE_COMPANY);
-        String company = scanner.next();
+        String company = scanner.nextLine();
 
-        System.out.println("Please enter " + DB_PHONE_AMOUNT_LEFT);
+        System.out.println("Please enter(int) " + DB_PHONE_AMOUNT_LEFT);
         int amountLeft = scanner.nextInt();
 
-        System.out.println("Please enter " + DB_PHONE_COST);
+        System.out.println("Please enter(float) " + DB_PHONE_COST);
         float cost = scanner.nextFloat();
+        scanner.nextLine();
 
         System.out.println("Please enter " + DB_PHONE_NETWORK_TYPE);
-        String networkType = scanner.next();
+        String networkType = scanner.nextLine();
 
         System.out.println("Please enter " + DB_PHONE_OS);
-        String os = scanner.next();
+        String os = scanner.nextLine();
 
         System.out.println("Please enter " + DB_PHONE_SCREEN_SIZE);
-        String screenSize = scanner.next();
+        String screenSize = scanner.nextLine();
 
         System.out.println("Please enter " + DB_PHONE_CAMERA_PIXEL);
-        String cameraPixel = scanner.next();
+        String cameraPixel = scanner.nextLine();
 
         System.out.println("Please enter " + DB_PHONE_SENSORS);
-        String sensors = scanner.next();
+        String sensors = scanner.nextLine();
 
         System.out.println("Please enter " + DB_PHONE_ANDROID_VERSION);
-        String androidVersion = scanner.next();
+        String androidVersion = scanner.nextLine();
 
         String response = phoneController.createCellularPhoneAndroidHuawei(name, company, amountLeft, cost, networkType, os, screenSize, cameraPixel, sensors, androidVersion);
         return response;
     }
     public String createCellularOppoPhoneMenu(){
+        scanner.nextLine();
         System.out.println("Please enter " + DB_PHONE_NAME);
-        String name = scanner.next();
+        String name = scanner.nextLine();
 
         System.out.println("Please enter " + DB_PHONE_COMPANY);
-        String company = scanner.next();
+        String company = scanner.nextLine();
 
-        System.out.println("Please enter " + DB_PHONE_AMOUNT_LEFT);
+        System.out.println("Please enter(int) " + DB_PHONE_AMOUNT_LEFT);
         int amountLeft = scanner.nextInt();
 
-        System.out.println("Please enter " + DB_PHONE_COST);
+        System.out.println("Please enter(float) " + DB_PHONE_COST);
         float cost = scanner.nextFloat();
+        scanner.nextLine();
 
         System.out.println("Please enter " + DB_PHONE_NETWORK_TYPE);
-        String networkType = scanner.next();
+        String networkType = scanner.nextLine();
 
         System.out.println("Please enter " + DB_PHONE_OS);
-        String os = scanner.next();
+        String os = scanner.nextLine();
 
         System.out.println("Please enter " + DB_PHONE_SCREEN_SIZE);
-        String screenSize = scanner.next();
+        String screenSize = scanner.nextLine();
 
         System.out.println("Please enter " + DB_PHONE_CAMERA_PIXEL);
-        String cameraPixel = scanner.next();
+        String cameraPixel = scanner.nextLine();
 
         System.out.println("Please enter " + DB_PHONE_SENSORS);
-        String sensors = scanner.next();
+        String sensors = scanner.nextLine();
 
         System.out.println("Please enter " + DB_PHONE_ANDROID_VERSION);
-        String androidVersion = scanner.next();
+        String androidVersion = scanner.nextLine();
 
         String response = phoneController.createCellularPhoneAndroidOppo(name, company, amountLeft, cost, networkType, os, screenSize, cameraPixel, sensors, androidVersion);
         return response;
     }
     public String createCellularIPhoneMenu(){
+        scanner.nextLine();
         System.out.println("Please enter " + DB_PHONE_NAME);
-        String name = scanner.next();
+        String name = scanner.nextLine();
 
         System.out.println("Please enter " + DB_PHONE_COMPANY);
-        String company = scanner.next();
+        String company = scanner.nextLine();
 
-        System.out.println("Please enter " + DB_PHONE_AMOUNT_LEFT);
+        System.out.println("Please enter(int) " + DB_PHONE_AMOUNT_LEFT);
         int amountLeft = scanner.nextInt();
 
-        System.out.println("Please enter " + DB_PHONE_COST);
+        System.out.println("Please enter(float) " + DB_PHONE_COST);
         float cost = scanner.nextFloat();
+        scanner.nextLine();
 
         System.out.println("Please enter " + DB_PHONE_NETWORK_TYPE);
-        String networkType = scanner.next();
+        String networkType = scanner.nextLine();
 
         System.out.println("Please enter " + DB_PHONE_OS);
-        String os = scanner.next();
+        String os = scanner.nextLine();
 
         System.out.println("Please enter " + DB_PHONE_SCREEN_SIZE);
-        String screenSize = scanner.next();
+        String screenSize = scanner.nextLine();
 
         System.out.println("Please enter " + DB_PHONE_CAMERA_PIXEL);
-        String cameraPixel = scanner.next();
+        String cameraPixel = scanner.nextLine();
 
         System.out.println("Please enter " + DB_PHONE_SENSORS);
-        String sensors = scanner.next();
+        String sensors = scanner.nextLine();
 
         System.out.println("Please enter " + DB_PHONE_IOS_VERSION);
-        String iosVersion = scanner.next();
+        String iosVersion = scanner.nextLine();
 
         String response = phoneController.createCellularPhoneIPhone(name, company, amountLeft, cost, networkType, os, screenSize, cameraPixel, sensors, iosVersion);
         return response;
     }
     public String createButtonPhoneMenu(){
+        scanner.nextLine();
         System.out.println("Please enter " + DB_PHONE_NAME);
-        String name = scanner.next();
+        String name = scanner.nextLine();
 
         System.out.println("Please enter " + DB_PHONE_COMPANY);
-        String company = scanner.next();
+        String company = scanner.nextLine();
 
-        System.out.println("Please enter " + DB_PHONE_AMOUNT_LEFT);
+        System.out.println("Please enter(int) " + DB_PHONE_AMOUNT_LEFT);
         int amountLeft = scanner.nextInt();
 
-        System.out.println("Please enter " + DB_PHONE_COST);
+        System.out.println("Please enter(float) " + DB_PHONE_COST);
         float cost = scanner.nextFloat();
+        scanner.nextLine();
 
         System.out.println("Please enter " + DB_PHONE_CONNECTION_TYPE);
-        String connectionType = scanner.next();
+        String connectionType = scanner.nextLine();
 
         String response = phoneController.createButtonPhone(name, company, amountLeft, cost, connectionType);
         return response;
     }
+    public String createCellularBaseModel(){
+        scanner.nextLine();
+        System.out.println("Please enter " + DB_PHONE_NAME);
+        String name = scanner.nextLine();
 
+        System.out.println("Please enter " + DB_PHONE_COMPANY);
+        String company = scanner.nextLine();
+
+        System.out.println("Please enter(int) " + DB_PHONE_AMOUNT_LEFT);
+        int amountLeft = scanner.nextInt();
+
+        System.out.println("Please enter(float) " + DB_PHONE_COST);
+        float cost = scanner.nextFloat();
+        scanner.nextLine();
+
+        System.out.println("Please enter " + DB_PHONE_NETWORK_TYPE);
+        String networkType = scanner.nextLine();
+
+        System.out.println("Please enter " + DB_PHONE_OS);
+        String os = scanner.nextLine();
+
+        System.out.println("Please enter " + DB_PHONE_SCREEN_SIZE);
+        String screenSize = scanner.nextLine();
+
+        System.out.println("Please enter " + DB_PHONE_CAMERA_PIXEL);
+        String cameraPixel = scanner.nextLine();
+
+        String response = phoneController.createCellularPhoneBaseModel(name, company, amountLeft, cost, networkType, os, screenSize, cameraPixel);
+        return response;
+    }
     public String createDiskPhoneMenu(){
+        scanner.nextLine();
         System.out.println("Please enter " + DB_PHONE_NAME);
-        String name = scanner.next();
+        String name = scanner.nextLine();
 
         System.out.println("Please enter " + DB_PHONE_COMPANY);
-        String company = scanner.next();
+        String company = scanner.nextLine();
 
-        System.out.println("Please enter " + DB_PHONE_AMOUNT_LEFT);
+        System.out.println("Please enter(int) " + DB_PHONE_AMOUNT_LEFT);
         int amountLeft = scanner.nextInt();
 
-        System.out.println("Please enter " + DB_PHONE_COST);
+        System.out.println("Please enter(float) " + DB_PHONE_COST);
         float cost = scanner.nextFloat();
+        scanner.nextLine();
 
         System.out.println("Please enter " + DB_PHONE_CONNECTION_TYPE);
-        String connectionType = scanner.next();
+        String connectionType = scanner.nextLine();
 
-        String response = phoneController.createButtonPhone(name, company, amountLeft, cost, connectionType);
+        String response = phoneController.createDiskPhone(name, company, amountLeft, cost, connectionType);
         return response;
     }
+
 
     public void updatePhoneMenu(){
         System.out.print("Enter id: ");

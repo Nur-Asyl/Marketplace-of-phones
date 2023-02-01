@@ -26,8 +26,7 @@ public abstract class CellularPhoneSmartPhone extends CellularPhone {
 
     @Override
     public String toString() {
-        return super.toString() + "{" +
-                "sensors='" + sensors + '\'' +
-                '}';
+        return super.toString() + "," +
+                "sensors='" + sensors + '\'';
     }
 }

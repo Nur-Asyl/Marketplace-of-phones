@@ -25,8 +25,8 @@ public class RadioPhone extends WirelessPhone {
 
     @Override
     public String toString() {
-        return "RadioPhone{" + super.toString() + "{" +
+        return super.toString() + "," +
                 "frequency=" + frequency +
-                "}}";
+                "}";
     }
 }

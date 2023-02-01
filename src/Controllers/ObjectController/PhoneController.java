@@ -50,7 +50,7 @@ public class PhoneController {
     public String createRadioPhone(String name, String company, int amountLeft, float cost, String networkType, String os, int frequency){
         RadioPhone phone = new RadioPhone(name, company, amountLeft, cost, networkType, os, frequency);
         boolean created = phoneRepo.createRadioPhone(phone);
-        return (created) ? "|------| Oppo Phone created |------|" : "|------| Oppo Phone not created |------|";
+        return (created) ? "|------| Radio Phone created |------|" : "|------| Radio Phone not created |------|";
     }
 
     public String createButtonPhone(String name, String company, int amountLeft, float cost, String connectionType){
@@ -128,7 +128,11 @@ public class PhoneController {
     }
 
     public String getAllPhones() {
+        String displayOfMarketPlays = "";
         List<Phone> phones = phoneRepo.getAllPhones();
-        return phones.toString();
+        for(Phone p : phones){
+            displayOfMarketPlays += p.toString() + "\n";
+        }
+        return displayOfMarketPlays;
     }
 }

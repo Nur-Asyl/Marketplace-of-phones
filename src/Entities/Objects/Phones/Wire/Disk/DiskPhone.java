@@ -11,4 +11,8 @@ public class DiskPhone extends WiredPhone {
         super(name, company, amountLeft, cost, connectionType);
     }
 
+    @Override
+    public String toString() {
+        return super.toString() + "}";
+    }
 }

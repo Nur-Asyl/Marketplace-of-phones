@@ -64,12 +64,10 @@ public abstract class Phone {
 
     @Override
     public String toString() {
-        return "{" +
+        return name + '{' +
                 "id=" + id +
-                ", name='" + name + '\'' +
                 ", company='" + company + '\'' +
                 ", amountLeft=" + amountLeft +
-                ", cost=" + cost +
-                '}';
+                ", cost=" + cost;
     }
 }

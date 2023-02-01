@@ -2,7 +2,7 @@ package Entities.Objects.Phones.Wireless.Cellular.Smart_phone.Android;
 
 import Entities.Objects.Phones.Wireless.Cellular.Smart_phone.CellularPhoneSmartPhone;
 
-public class CellularPhoneAndroid extends CellularPhoneSmartPhone {
+public class CellularPhoneAndroid<T> extends CellularPhoneSmartPhone {
     private String androidVersion;
 
     public CellularPhoneAndroid(int id, String name, String company, int amountLeft, float cost, String networkType, String os, String screenSize, String cameraPixel, String sensors, String androidVersion) {
@@ -25,8 +25,7 @@ public class CellularPhoneAndroid extends CellularPhoneSmartPhone {
 
     @Override
     public String toString() {
-        return super.toString() + "{" +
-                "androidVersion='" + androidVersion + '\'' +
-                '}';
+        return super.toString() + "," +
+                "androidVersion='" + androidVersion + '\'' + "}";
     }
 }

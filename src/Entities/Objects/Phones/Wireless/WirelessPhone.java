@@ -36,9 +36,8 @@ public abstract class WirelessPhone extends Phone {
 
     @Override
     public String toString() {
-        return super.toString() + "{" +
+        return super.toString() + "," +
                 "networkType='" + networkType + '\'' +
-                ", os='" + os + '\'' +
-                '}';
+                ", os='" + os + '\'';
     }
 }

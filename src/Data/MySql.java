@@ -18,9 +18,10 @@ public class MySql implements IDB {
             Connection con = DriverManager.getConnection(connectionUrl, "MySQL", "root");
 
             return con;
-        } catch (Exception e) {
-            System.out.println(e);
-            return null;
+        } catch (SQLException throwables) {
+            throw throwables;
+        } catch (ClassNotFoundException e){
+            throw e;
         }
     }
 }

@@ -14,6 +14,6 @@ public class CellularPhoneBaseModel extends CellularPhone {
 
     @Override
     public String toString() {
-        return "CellularPhoneBaseModel{" + super.toString() + "}";
+        return super.toString() + "}";
     }
 }

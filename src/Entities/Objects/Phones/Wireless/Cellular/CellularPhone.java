@@ -36,9 +36,8 @@ public abstract class CellularPhone extends WirelessPhone {
 
     @Override
     public String toString() {
-        return super.toString() + "{" +
+        return super.toString() + "," +
                 "screenSize='" + screenSize + '\'' +
-                ", cameraPixel='" + cameraPixel + '\'' +
-                '}';
+                ", cameraPixel='" + cameraPixel + '\'';
     }
 }

@@ -26,8 +26,7 @@ public class WiredPhone extends Phone {
 
     @Override
     public String toString() {
-        return "WiredPhone" + super.toString() + "{" +
-                "connectionType='" + connectionType + '\'' +
-                '}';
+        return super.toString() + "," +
+                "connectionType='" + connectionType + '\'';
     }
 }

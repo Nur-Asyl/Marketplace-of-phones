@@ -7,22 +7,15 @@ import Entities.Objects.Phones.Wire.Disk.DiskPhone;
 import Entities.Objects.Phones.Wire.WiredPhone;
 import Entities.Objects.Phones.Wireless.Cellular.Base_model.CellularPhoneBaseModel;
 import Entities.Objects.Phones.Wireless.Cellular.Smart_phone.Android.CellularPhoneAndroid;
-import Entities.Objects.Phones.Wireless.Cellular.Smart_phone.Android.Samsung.CellularPhoneAndroidSamsung;
-import Entities.Objects.Phones.Wireless.Cellular.Smart_phone.IOS.Apple.CellularPhoneIOSIPhone;
 import Entities.Objects.Phones.Wireless.Cellular.Smart_phone.IOS.CellularPhoneIOS;
 import Entities.Objects.Phones.Wireless.Radio.RadioPhone;
-import Entities.Users.User;
 import Repositories.ObjectRepository.interfaces.IPhoneRepository;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.LinkedList;
 import java.util.List;
 
 import static Repositories.DBProporties.DBPhoneProporties.*;
-import static Repositories.DBProporties.DBUserProporties.*;
 
 public class PhoneRepository implements IPhoneRepository {
 
@@ -41,7 +34,7 @@ public class PhoneRepository implements IPhoneRepository {
             String sql = "INSERT INTO " + DB_PHONE_TABLE_PHONE + "(" +
                     DB_PHONE_NAME + "," +
                     DB_PHONE_COMPANY + "," +
-                    DB_PHONE_AMOUNT_LEFT +
+                    DB_PHONE_AMOUNT_LEFT + "," +
                     DB_PHONE_COST + "," +
                     DB_PHONE_NETWORK_TYPE + "," +
                     DB_PHONE_OS + "," +
@@ -83,7 +76,7 @@ public class PhoneRepository implements IPhoneRepository {
             String sql = "INSERT INTO " + DB_PHONE_TABLE_PHONE + "(" +
                     DB_PHONE_NAME + "," +
                     DB_PHONE_COMPANY + "," +
-                    DB_PHONE_AMOUNT_LEFT +
+                    DB_PHONE_AMOUNT_LEFT + "," +
                     DB_PHONE_COST + "," +
                     DB_PHONE_NETWORK_TYPE + "," +
                     DB_PHONE_OS + "," +
@@ -128,7 +121,7 @@ public class PhoneRepository implements IPhoneRepository {
             String sql = "INSERT INTO " + DB_PHONE_TABLE_PHONE + "(" +
                     DB_PHONE_NAME + "," +
                     DB_PHONE_COMPANY + "," +
-                    DB_PHONE_AMOUNT_LEFT +
+                    DB_PHONE_AMOUNT_LEFT + "," +
                     DB_PHONE_COST + "," +
                     DB_PHONE_NETWORK_TYPE + "," +
                     DB_PHONE_OS + "," +
@@ -167,7 +160,7 @@ public class PhoneRepository implements IPhoneRepository {
             String sql = "INSERT INTO " + DB_PHONE_TABLE_PHONE + "(" +
                     DB_PHONE_NAME + "," +
                     DB_PHONE_COMPANY + "," +
-                    DB_PHONE_AMOUNT_LEFT +
+                    DB_PHONE_AMOUNT_LEFT + "," +
                     DB_PHONE_COST + "," +
                     DB_PHONE_NETWORK_TYPE + "," +
                     DB_PHONE_OS + "," +
@@ -212,7 +205,7 @@ public class PhoneRepository implements IPhoneRepository {
             String sql = "INSERT INTO " + DB_PHONE_TABLE_PHONE + "(" +
                     DB_PHONE_NAME + "," +
                     DB_PHONE_COMPANY + "," +
-                    DB_PHONE_AMOUNT_LEFT +
+                    DB_PHONE_AMOUNT_LEFT + "," +
                     DB_PHONE_COST + "," +
                     DB_PHONE_CONNECTION_TYPE +") VALUES (?,?,?,?,?)";
             PreparedStatement st = con.prepareStatement(sql);
@@ -247,7 +240,7 @@ public class PhoneRepository implements IPhoneRepository {
             String sql = "INSERT INTO " + DB_PHONE_TABLE_PHONE + "(" +
                     DB_PHONE_NAME + "," +
                     DB_PHONE_COMPANY + "," +
-                    DB_PHONE_AMOUNT_LEFT +
+                    DB_PHONE_AMOUNT_LEFT + "," +
                     DB_PHONE_COST + "," +
                     DB_PHONE_CONNECTION_TYPE +") VALUES (?,?,?,?,?)";
             PreparedStatement st = con.prepareStatement(sql);
@@ -672,9 +665,9 @@ public class PhoneRepository implements IPhoneRepository {
             st.setInt(1, id);
 
             ResultSet rs = st.executeQuery();
+            if(rs.next()) {
+                if (rs.getString(DB_PHONE_COMPANY).equals("Samsung") || rs.getString(DB_PHONE_COMPANY).equals("Huawei") || rs.getString(DB_PHONE_COMPANY).equals("Oppo")) {
 
-            if(rs.getString(DB_PHONE_COMPANY).equals("Samsung") || rs.getString(DB_PHONE_COMPANY).equals("Huawei") || rs.getString(DB_PHONE_COMPANY).equals("Oppo")){
-                if(rs.next()) {
                     CellularPhoneAndroid phone = new CellularPhoneAndroid(
                             rs.getInt(DB_PHONE_ID),
                             rs.getString(DB_PHONE_NAME),
@@ -688,9 +681,7 @@ public class PhoneRepository implements IPhoneRepository {
                             rs.getString(DB_PHONE_SENSORS),
                             rs.getString(DB_PHONE_ANDROID_VERSION));
                     return phone;
-                }
-            } else if(rs.getString(DB_PHONE_COMPANY).equals("Apple")){
-                if(rs.next()) {
+                } else if (rs.getString(DB_PHONE_COMPANY).equals("Apple")) {
                     CellularPhoneIOS phone = new CellularPhoneIOS(
                             rs.getInt(DB_PHONE_ID),
                             rs.getString(DB_PHONE_NAME),
@@ -704,9 +695,7 @@ public class PhoneRepository implements IPhoneRepository {
                             rs.getString(DB_PHONE_SENSORS),
                             rs.getString(DB_PHONE_IOS_VERSION));
                     return phone;
-                }
-            } else {
-                if(rs.next()) {
+                } else {
                     WiredPhone phone = new WiredPhone(
                             rs.getInt(DB_PHONE_ID),
                             rs.getString(DB_PHONE_NAME),
@@ -737,14 +726,14 @@ public class PhoneRepository implements IPhoneRepository {
         try {
             con = db.getConnection();
             String sql = "SELECT * FROM " + DB_PHONE_TABLE_PHONE;
-            PreparedStatement st = con.prepareStatement(sql);
+            Statement st = con.createStatement();
 
-            ResultSet rs = st.executeQuery();
+            ResultSet rs = st.executeQuery(sql);
             List<Phone> phones = new LinkedList<>();
-
-            if(rs.getString(DB_PHONE_COMPANY).equals("Samsung") || rs.getString(DB_PHONE_COMPANY).equals("Huawei") || rs.getString(DB_PHONE_COMPANY).equals("Oppo")){
-                while(rs.next()) {
-                    CellularPhoneAndroid phone = new CellularPhoneAndroid(
+            Phone phone;
+            while(rs.next()) {
+                if (rs.getString(DB_PHONE_COMPANY).equals("Samsung") || rs.getString(DB_PHONE_COMPANY).equals("Huawei") || rs.getString(DB_PHONE_COMPANY).equals("Oppo")) {
+                    phone = new CellularPhoneAndroid(
                             rs.getInt(DB_PHONE_ID),
                             rs.getString(DB_PHONE_NAME),
                             rs.getString(DB_PHONE_COMPANY),
@@ -756,11 +745,8 @@ public class PhoneRepository implements IPhoneRepository {
                             rs.getString(DB_PHONE_CAMERA_PIXEL),
                             rs.getString(DB_PHONE_SENSORS),
                             rs.getString(DB_PHONE_ANDROID_VERSION));
-                    phones.add(phone);
-                }
-            } else if(rs.getString(DB_PHONE_COMPANY).equals("Apple")){
-                while(rs.next()) {
-                    CellularPhoneIOS phone = new CellularPhoneIOS(
+                } else if (rs.getString(DB_PHONE_COMPANY).equals("Apple")) {
+                    phone = new CellularPhoneIOS(
                             rs.getInt(DB_PHONE_ID),
                             rs.getString(DB_PHONE_NAME),
                             rs.getString(DB_PHONE_COMPANY),
@@ -772,20 +758,18 @@ public class PhoneRepository implements IPhoneRepository {
                             rs.getString(DB_PHONE_CAMERA_PIXEL),
                             rs.getString(DB_PHONE_SENSORS),
                             rs.getString(DB_PHONE_IOS_VERSION));
-                    phones.add(phone);
-                }
-            } else {
-                while(rs.next()) {
-                    WiredPhone phone = new WiredPhone(
+                } else {
+                    phone = new WiredPhone(
                             rs.getInt(DB_PHONE_ID),
                             rs.getString(DB_PHONE_NAME),
                             rs.getString(DB_PHONE_COMPANY),
                             rs.getInt(DB_PHONE_AMOUNT_LEFT),
                             rs.getFloat(DB_PHONE_COST),
                             rs.getString(DB_PHONE_CONNECTION_TYPE));
-                    phones.add(phone);
                 }
+                phones.add(phone);
             }
+
             return phones;
         } catch (SQLException throwables) {
             throwables.printStackTrace();
