@@ -131,7 +131,7 @@ public class PhoneController {
         String displayOfMarketPlays = "";
         List<Phone> phones = phoneRepo.getAllPhones();
         for(Phone p : phones){
-            displayOfMarketPlays += p.toString() + "\n";
+            displayOfMarketPlays += p.toString() + "\n|-------------------------------------------\n";
         }
         return displayOfMarketPlays;
     }

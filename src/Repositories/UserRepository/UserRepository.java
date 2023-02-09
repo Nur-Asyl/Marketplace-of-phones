@@ -165,6 +165,7 @@ public class UserRepository implements IUserRepository {
         try {
             con = db.getConnection();
             String sql = "SELECT " +
+                    DB_USER_ID + "," +
                     DB_USER_NAME + "," +
                     DB_USER_PASSWORD + "," +
                     DB_USER_BALANCE + " FROM " + DB_USER_TABLE + " WHERE id=?";
@@ -201,6 +202,7 @@ public class UserRepository implements IUserRepository {
         try {
             con = db.getConnection();
             String sql = "SELECT " +
+                    DB_USER_ID + "," +
                     DB_USER_NAME + "," +
                     DB_USER_PASSWORD + "," +
                     DB_USER_BALANCE + " FROM " + DB_USER_TABLE;

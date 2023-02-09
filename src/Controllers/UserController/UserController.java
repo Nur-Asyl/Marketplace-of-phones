@@ -45,8 +45,22 @@ public class UserController {
         return (u != null) ? u.toString() : "|------| User not found |------|";
     }
 
+    public String getUserPassword(int id){
+        User u = userRepo.getUser(id);
+        return (u != null) ? u.getPassword() : null;
+    }
+
+    public float getUserBalance(int id){
+        User u = userRepo.getUser(id);
+        return (u != null) ? u.getBalance() : null;
+    }
+
     public String getAllUsers() {
+        String displayAllUsers = "";
         List<User> users = userRepo.getAllUsers();
-        return users.toString();
+        for(User u : users){
+            displayAllUsers += u.toString() + "\n";
+        }
+        return displayAllUsers;
     }
 }
