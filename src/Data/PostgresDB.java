@@ -8,6 +8,17 @@ import java.sql.SQLException;
 
 public class PostgresDB implements IDB {
 
+    private static PostgresDB instance = null; // static instance variable
+
+    private PostgresDB() {} // private constructor to prevent instantiation
+
+    public static PostgresDB getInstance() {
+        if (instance == null) {
+            instance = new PostgresDB();
+        }
+        return instance;
+    }
+
     @Override
     public Connection getConnection() throws SQLException, ClassNotFoundException {
         String connectionUrl = "jdbc:postgresql://localhost:2077/Phones";

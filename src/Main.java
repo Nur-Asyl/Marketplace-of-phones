@@ -16,7 +16,7 @@ public class Main {
     public static void main(String[] args) {
 
         //Data base
-        IDB db = new PostgresDB();
+        IDB db = PostgresDB.getInstance();
 
         //Repositories and Controllers
         IUserRepository userRepo = new UserRepository(db);
